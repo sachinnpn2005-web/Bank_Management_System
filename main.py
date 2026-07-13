@@ -1,26 +1,37 @@
 from account import SavingsAccount
+from customer import Customer
 
 
 def main():
 
     try:
-        # Create a savings account
-        account = SavingsAccount(1001, 2000)
+        # Create account
+        account = SavingsAccount(1001, 5000)
+
+        # Create customer
+        customer = Customer(
+            "C001",
+            "Sachin Neupane",
+            "9812345678",
+            "sachin@gmail.com",
+            "1234",
+            account
+        )
+
+        print("Customer:", customer.get_name())
+
+        # Test PIN
+        print(customer.verify_pin("1234"))
 
         # Deposit money
-        account.deposit(1000)
+        customer.get_account().deposit(1000)
 
-        # Withdraw money
-        account.withdraw(500)
+        # Display account
+        customer.get_account().display_info()
 
-        # Show account details
-        account.display_info()
-
-    # Handle any invalid operations
     except ValueError as e:
-        print(f"Error: {e}")
+        print(e)
 
 
-# Run the program
 if __name__ == "__main__":
     main()
