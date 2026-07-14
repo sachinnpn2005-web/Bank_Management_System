@@ -64,3 +64,7 @@ class Customer:
     # Return customer name
     def get_name(self):
         return self.name
+    
+    # Return customer id
+    def get_customer_id(self):
+        return self.customer_id

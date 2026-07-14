@@ -59,6 +59,13 @@ class SavingsAccount(Account):
         print(f"Balance        : Rs. {self._balance:.2f}")
         print("===========================\n")
 
+    # Return account number
+    def get_account_number(self):
+        return self._account_number
+
+    # Return current balance
+    def get_balance(self):
+        return self._balance
 
 # Current Account class
 class CurrentAccount(Account):
@@ -89,3 +96,11 @@ class CurrentAccount(Account):
         print(f"Account Number : {self._account_number}")
         print(f"Balance        : Rs. {self._balance:.2f}")
         print("===========================\n")
+
+    # Return account number
+    def get_account_number(self):
+        return self._account_number
+
+    # Return current balance
+    def get_balance(self):
+        return self._balance
