@@ -1,86 +1,71 @@
 class Bank:
 
     def __init__(self):
-        # Store all customer objects
+        # Store all customers
         self._customers = []
 
-    # Add a new customer to the bank
+    # Add a customer to the bank
     def add_customer(self, customer):
         self._customers.append(customer)
 
-    # Find a customer using customer ID
+    # Return all customers
+    def get_all_customers(self):
+        return self._customers
+
+    # Find customer using customer ID
     def find_customer(self, customer_id):
 
-        # Check every customer in the list
         for customer in self._customers:
 
-            # Return customer if ID matches
             if customer.get_customer_id() == customer_id:
                 return customer
 
-        # Return None if customer is not found
         return None
 
-    # Remove a customer from the bank
+    # Remove a customer
     def remove_customer(self, customer_id):
 
-        # Search for the customer
         customer = self.find_customer(customer_id)
 
         if customer is None:
             return False
 
-        # Remove customer from the list
         self._customers.remove(customer)
         return True
 
-    # Display all customers
-    def display_all_customers(self):
-
-        # Check if there are any customers
-        if not self._customers:
-            print("No customers found.")
-            return
-
-        print("\n========== Customers ==========\n")
-
-        # Display every customer's details
-        for customer in self._customers:
-
-            account = customer.get_account()
-
-            print(f"Customer ID : {customer.get_customer_id()}")
-            print(f"Name        : {customer.get_name()}")
-            print(f"Account No. : {account.get_account_number()}")
-            print(f"Balance     : Rs. {account.get_balance():.2f}")
-            print(f"Account Type: {type(account).__name__}")
-            print("-" * 35)
-
-    # Deposit money into a customer's account
+    # Deposit money
     def deposit_money(self, customer_id, amount):
 
-        # Search customer
         customer = self.find_customer(customer_id)
 
         if customer is None:
             return False
 
-        customer.get_account().deposit(amount)
-        return True
+        try:
+            customer.get_account().deposit(amount)
+            return True
 
-    # Withdraw money from a customer's account
+        except ValueError as e:
+            print(e)
+            return False
+
+    # Withdraw money
     def withdraw_money(self, customer_id, amount):
 
-        # Search customer
         customer = self.find_customer(customer_id)
 
         if customer is None:
             return False
 
-        customer.get_account().withdraw(amount)
-        return True
+        try:
+            customer.get_account().withdraw(amount)
+            return True
 
-    # Transfer money from one customer to another
+        except ValueError as e:
+            print(e)
+            return False
+
+    # Transfer money between customers
     def transfer_money(self, sender_id, receiver_id, amount):
 
         try:
@@ -89,18 +74,17 @@ class Bank:
             if sender_id == receiver_id:
                 raise ValueError("Sender and receiver cannot be the same.")
 
-            # Find both customers
             sender = self.find_customer(sender_id)
             receiver = self.find_customer(receiver_id)
 
-            # Check if both customers exist
+            # Check whether both customers exist
             if sender is None or receiver is None:
                 raise ValueError("Invalid customer ID.")
 
-            # Withdraw money from sender
+            # Withdraw from sender
             sender.get_account().withdraw(amount)
 
-            # Deposit money into receiver
+            # Deposit to receiver
             receiver.get_account().deposit(amount)
 
             return True
@@ -108,3 +92,60 @@ class Bank:
         except ValueError as e:
             print(e)
             return False
+
+    # Display all customers
+    def display_all_customers(self):
+
+        if not self._customers:
+            print("\nNo customers found.")
+            return
+
+        print("\n========== CUSTOMER LIST ==========\n")
+
+        for customer in self._customers:
+
+            account = customer.get_account()
+
+            print(f"Customer ID   : {customer.get_customer_id()}")
+            print(f"Name          : {customer.get_name()}")
+            print(f"Phone         : {customer.get_phone()}")
+            print(f"Email         : {customer.get_email()}")
+            print(f"Account No.   : {account.get_account_number()}")
+            print(f"Account Type  : {type(account).__name__}")
+            print(f"Balance       : Rs. {account.get_balance()}")
+            print("-" * 40)
+
+    # Generate next customer ID
+    def generate_customer_id(self):
+
+        # First customer
+        if not self._customers:
+            return "C001"
+
+        # Last customer
+        last_customer = self._customers[-1]
+
+        # Example: C005
+        last_id = last_customer.get_customer_id()
+
+        # Remove C
+        number = int(last_id[1:])
+
+        # Increase by one
+        number += 1
+
+        # Return new ID
+        return "C" + str(number).zfill(3)
+
+    # Generate next account number
+    def generate_account_number(self):
+
+        # First account
+        if not self._customers:
+            return 1001
+
+        last_customer = self._customers[-1]
+
+        account = last_customer.get_account()
+
+        return account.get_account_number() + 1
