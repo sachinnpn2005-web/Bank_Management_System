@@ -134,8 +134,3 @@ python main.py
 ## 👨‍💻 Author
 
 **Sachin Neupane**
-
-Bachelor of Computer Science (Hons)
-Network Technology & Cybersecurity
-
-Texas College of Management & IT
