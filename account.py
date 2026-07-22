@@ -27,7 +27,14 @@ class Account(ABC):
     @abstractmethod
     def display_info(self):
         pass
-
+    
+    # Convert account object into a dictionary
+    def to_dict(self):
+        return {
+            "account_number": self.get_account_number(),
+            "balance": self.get_balance(),
+            "account_type": type(self).__name__
+        }
 
 # Savings Account class
 class SavingsAccount(Account):

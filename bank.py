@@ -4,7 +4,7 @@ class Bank:
         # Store all customers
         self._customers = []
 
-    # Add a customer to the bank
+    # Add a new customer
     def add_customer(self, customer):
         self._customers.append(customer)
 
@@ -12,7 +12,7 @@ class Bank:
     def get_all_customers(self):
         return self._customers
 
-    # Find customer using customer ID
+    # Search customer using customer ID
     def find_customer(self, customer_id):
 
         for customer in self._customers:
@@ -22,15 +22,23 @@ class Bank:
 
         return None
 
-    # Remove a customer
+    # Check whether customer exists
+    def customer_exists(self, customer_id):
+
+        return self.find_customer(customer_id) is not None
+
+    # Remove customer from the bank
     def remove_customer(self, customer_id):
 
         customer = self.find_customer(customer_id)
 
         if customer is None:
+            print("Customer not found.")
             return False
 
         self._customers.remove(customer)
+
+        print("Customer removed successfully.")
         return True
 
     # Deposit money
@@ -39,10 +47,12 @@ class Bank:
         customer = self.find_customer(customer_id)
 
         if customer is None:
+            print("Customer not found.")
             return False
 
         try:
             customer.get_account().deposit(amount)
+            print("Amount deposited successfully.")
             return True
 
         except ValueError as e:
@@ -55,17 +65,19 @@ class Bank:
         customer = self.find_customer(customer_id)
 
         if customer is None:
+            print("Customer not found.")
             return False
 
         try:
             customer.get_account().withdraw(amount)
+            print("Amount withdrawn successfully.")
             return True
 
         except ValueError as e:
             print(e)
             return False
 
-    # Transfer money between customers
+    # Transfer money between two customers
     def transfer_money(self, sender_id, receiver_id, amount):
 
         try:
@@ -78,8 +90,11 @@ class Bank:
             receiver = self.find_customer(receiver_id)
 
             # Check whether both customers exist
-            if sender is None or receiver is None:
-                raise ValueError("Invalid customer ID.")
+            if sender is None:
+                raise ValueError("Sender not found.")
+
+            if receiver is None:
+                raise ValueError("Receiver not found.")
 
             # Withdraw from sender
             sender.get_account().withdraw(amount)
@@ -87,65 +102,93 @@ class Bank:
             # Deposit to receiver
             receiver.get_account().deposit(amount)
 
+            print("Transfer completed successfully.")
             return True
 
         except ValueError as e:
             print(e)
             return False
 
+    # Display one customer
+    def view_customer(self, customer_id):
+
+        customer = self.find_customer(customer_id)
+
+        if customer is None:
+            print("Customer not found.")
+            return
+
+        account = customer.get_account()
+
+        print("\n========================================")
+        print(f"Customer ID   : {customer.get_customer_id()}")
+        print(f"Name          : {customer.get_name()}")
+        print(f"Phone         : {customer.get_phone()}")
+        print(f"Email         : {customer.get_email()}")
+        print(f"Account No.   : {account.get_account_number()}")
+        print(f"Account Type  : {type(account).__name__}")
+        print(f"Balance       : Rs. {account.get_balance():.2f}")
+        print("========================================")
+
     # Display all customers
     def display_all_customers(self):
 
         if not self._customers:
-            print("\nNo customers found.")
+            print("\nNo customers available.")
             return
 
-        print("\n========== CUSTOMER LIST ==========\n")
+        print("\n========== CUSTOMER LIST ==========")
 
         for customer in self._customers:
 
             account = customer.get_account()
 
+            print("\n----------------------------------------")
             print(f"Customer ID   : {customer.get_customer_id()}")
             print(f"Name          : {customer.get_name()}")
             print(f"Phone         : {customer.get_phone()}")
             print(f"Email         : {customer.get_email()}")
             print(f"Account No.   : {account.get_account_number()}")
             print(f"Account Type  : {type(account).__name__}")
-            print(f"Balance       : Rs. {account.get_balance()}")
-            print("-" * 40)
+            print(f"Balance       : Rs. {account.get_balance():.2f}")
+            print("----------------------------------------")
 
-    # Generate next customer ID
+    # Generate customer ID automatically
     def generate_customer_id(self):
 
         # First customer
         if not self._customers:
             return "C001"
 
-        # Last customer
-        last_customer = self._customers[-1]
+        highest = 0
 
-        # Example: C005
-        last_id = last_customer.get_customer_id()
+        # Find the highest customer ID
+        for customer in self._customers:
 
-        # Remove C
-        number = int(last_id[1:])
+            number = int(customer.get_customer_id()[1:])
 
-        # Increase by one
-        number += 1
+            if number > highest:
+                highest = number
 
-        # Return new ID
-        return "C" + str(number).zfill(3)
+        highest += 1
 
-    # Generate next account number
+        return "C" + str(highest).zfill(3)
+
+    # Generate account number automatically
     def generate_account_number(self):
 
         # First account
         if not self._customers:
             return 1001
 
-        last_customer = self._customers[-1]
+        highest = 1000
 
-        account = last_customer.get_account()
+        # Find the highest account number
+        for customer in self._customers:
 
-        return account.get_account_number() + 1
+            account_number = customer.get_account().get_account_number()
+
+            if account_number > highest:
+                highest = account_number
+
+        return highest + 1
