@@ -1,1 +1,14 @@
-[]
+[
+    {
+        "customer_id": "C002",
+        "name": "Ujwal Rai",
+        "phone": "9854632157",
+        "email": "ujwal.rai@gmail.com",
+        "pin": "5699",
+        "account": {
+            "account_number": 1002,
+            "balance": 20036.0,
+            "account_type": "CurrentAccount"
+        }
+    }
+]

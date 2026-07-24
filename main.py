@@ -28,7 +28,7 @@ def pause():
 
 
 # Create a new customer
-def create_customer(bank):
+def create_customer(bank, file_manager):
 
     print("\n========== CREATE CUSTOMER ==========")
 
@@ -70,6 +70,9 @@ def create_customer(bank):
 
         bank.add_customer(customer)
 
+        # Automatically save
+        file_manager.save_data(bank)
+
         print("\n====================================")
         print("Customer created successfully.")
         print(f"Customer ID : {customer_id}")
@@ -81,50 +84,53 @@ def create_customer(bank):
 
 
 # Deposit money
-def deposit_money(bank):
+def deposit_money(bank, file_manager):
 
     print("\n========== DEPOSIT MONEY ==========")
 
-    customer_id = input("Enter Customer ID: ")
+    customer_id = input("Enter Customer ID: ").strip().upper()
 
     amount = get_amount()
 
-    bank.deposit_money(customer_id, amount)
+    if bank.deposit_money(customer_id, amount):
+        file_manager.save_data(bank)
 
 
 # Withdraw money
-def withdraw_money(bank):
+def withdraw_money(bank, file_manager):
 
     print("\n========== WITHDRAW MONEY ==========")
 
-    customer_id = input("Enter Customer ID: ")
+    customer_id = input("Enter Customer ID: ").strip().upper()
 
     amount = get_amount()
 
-    bank.withdraw_money(customer_id, amount)
+    if bank.withdraw_money(customer_id, amount):
+        file_manager.save_data(bank)
 
 
 # Transfer money
-def transfer_money(bank):
+def transfer_money(bank, file_manager):
 
     print("\n========== TRANSFER MONEY ==========")
 
-    sender_id = input("Sender Customer ID: ")
-    receiver_id = input("Receiver Customer ID: ")
+    sender_id = input("Sender Customer ID: ").strip().upper()
+    receiver_id = input("Receiver Customer ID: ").strip().upper()
 
     amount = get_amount()
 
-    bank.transfer_money(sender_id, receiver_id, amount)
-
+    if bank.transfer_money(sender_id, receiver_id, amount):
+        file_manager.save_data(bank)
 
 # Remove customer
-def remove_customer(bank):
+def remove_customer(bank, file_manager):
 
     print("\n========== REMOVE CUSTOMER ==========")
 
-    customer_id = input("Enter Customer ID: ")
+    customer_id = input("Enter Customer ID: ").strip().upper()
 
-    bank.remove_customer(customer_id)
+    if bank.remove_customer(customer_id):
+        file_manager.save_data(bank)
 
 
 # View one customer
@@ -159,7 +165,6 @@ def main():
         print("5. Withdraw Money")
         print("6. Transfer Money")
         print("7. Remove Customer")
-        print("8. Save Data")
         print("0. Exit")
         print("==================================================")
 
@@ -169,7 +174,7 @@ def main():
 
             if choice == "1":
 
-                create_customer(bank)
+                create_customer(bank, file_manager)
 
             elif choice == "2":
 
@@ -181,23 +186,19 @@ def main():
 
             elif choice == "4":
 
-                deposit_money(bank)
+                deposit_money(bank, file_manager)
 
             elif choice == "5":
 
-                withdraw_money(bank)
+                withdraw_money(bank, file_manager)
 
             elif choice == "6":
 
-                transfer_money(bank)
+                transfer_money(bank, file_manager)
 
             elif choice == "7":
 
-                remove_customer(bank)
-
-            elif choice == "8":
-
-                file_manager.save_data(bank)
+                remove_customer(bank, file_manager)
 
             elif choice == "0":
 
@@ -205,7 +206,6 @@ def main():
                 file_manager.save_data(bank)
 
                 print("\nThank you for using the Bank Management System.")
-                print("Data saved successfully.")
                 break
 
             else:
