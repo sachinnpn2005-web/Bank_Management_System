@@ -7,7 +7,67 @@
         "pin": "5699",
         "account": {
             "account_number": 1002,
-            "balance": 20036.0,
+            "balance": 9931806.0,
+            "account_type": "CurrentAccount"
+        }
+    },
+    {
+        "customer_id": "C003",
+        "name": "Sachin Neupane",
+        "phone": "98181219632",
+        "email": "sachin@gmail.com",
+        "pin": "7789",
+        "account": {
+            "account_number": 1003,
+            "balance": 56746962.0,
+            "account_type": "CurrentAccount"
+        }
+    },
+    {
+        "customer_id": "C004",
+        "name": "Pranjal Neupane",
+        "phone": "9841235689",
+        "email": "pranjal@gmail.com",
+        "pin": "1234",
+        "account": {
+            "account_number": 1004,
+            "balance": 10004001.0,
+            "account_type": "SavingsAccount"
+        }
+    },
+    {
+        "customer_id": "C005",
+        "name": "Narayan Poudel",
+        "phone": "9745632189",
+        "email": "narayan.poudel@gmail.com",
+        "pin": "5632",
+        "account": {
+            "account_number": 1005,
+            "balance": 570480.0,
+            "account_type": "SavingsAccount"
+        }
+    },
+    {
+        "customer_id": "C006",
+        "name": "Raju Pandey",
+        "phone": "9845632589",
+        "email": "raju@gmail.com",
+        "pin": "7890",
+        "account": {
+            "account_number": 1006,
+            "balance": 800.0,
+            "account_type": "CurrentAccount"
+        }
+    },
+    {
+        "customer_id": "C008",
+        "name": "Shyam Sundar",
+        "phone": "9745863210",
+        "email": "sam@yahoo.com",
+        "pin": "5236",
+        "account": {
+            "account_number": 1008,
+            "balance": 0,
             "account_type": "CurrentAccount"
         }
     }
