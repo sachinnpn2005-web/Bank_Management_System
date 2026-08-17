@@ -1,109 +1,93 @@
-# 🏦 Bank Management System
+# Bank Management System
 
-## 📌 Project Overview
+A simple console-based Bank Management System made with Python for my Object-Oriented Programming project.
 
-The Bank Management System is a console-based application developed using Python and Object-Oriented Programming (OOP). It allows users to create customer accounts, perform banking operations, and store data permanently using JSON file handling.
+The project is mainly focused on using OOP concepts in a practical way while also handling customer data and basic banking operations.
 
-This project was developed as part of the Object-Oriented Programming course to demonstrate the practical implementation of OOP concepts.
+## Features
 
----
+* Create new customers
+* Automatically generate Customer IDs and Account Numbers
+* Create Savings or Current Accounts
+* View all customers
+* View a specific customer
+* Deposit money
+* Withdraw money
+* Transfer money between customers
+* Remove customers
+* PIN verification and account locking
+* Input validation and exception handling
+* Automatically save data to JSON
+* Automatically load saved data when the program starts
 
-## ✨ Features
+## OOP Concepts Used
 
-- Create new customer accounts
-- Automatically generate Customer ID
-- Automatically generate Account Number
-- Savings Account and Current Account
-- Deposit money
-- Withdraw money
-- Transfer money between customers
-- Remove customer
-- View a single customer
-- View all customers
-- PIN verification
-- Account locking after multiple incorrect PIN attempts
-- Save data into JSON file
-- Load data automatically when the program starts
-- Exception handling for invalid operations
+The project uses the main OOP concepts required for the assignment:
 
----
+* **Abstraction** – `Account` is an abstract base class.
+* **Inheritance** – `SavingsAccount` and `CurrentAccount` inherit from `Account`.
+* **Polymorphism** – Both account types implement their own `deposit()` and `withdraw()` methods.
+* **Encapsulation** – Customer information such as the PIN is protected/private.
+* **Composition** – A `Customer` has an `Account`.
+* **Aggregation** – The `Bank` manages multiple `Customer` objects.
 
-## 💻 Technologies Used
+## Project Structure
 
-- Python 3
-- Object-Oriented Programming
-- JSON File Handling
-- Git & GitHub
-
----
-
-## 📂 Project Structure
-
-```
-Bank_Management_System/
+```text
+OOP_Project_Sachin/
 │
 ├── account.py
-├── customer.py
 ├── bank.py
+├── customer.py
 ├── file_manager.py
 ├── main.py
 ├── data/
 │   └── bank_data.json
 ├── README.md
+├── requirements.txt
 └── .gitignore
 ```
 
----
+## How It Works
 
-## 🧩 OOP Concepts Used
+When the program starts, it creates the `Bank` and `FileManager` objects and loads previously saved data from the JSON file.
 
-### Encapsulation
+After that, the main menu is displayed. The user can choose an operation such as creating a customer, viewing customer details, depositing money, withdrawing money, transferring money, or removing a customer.
 
-Customer PIN is stored as a private attribute.
+Whenever customer or account data is changed, the updated information is automatically saved to the JSON file. This means the data is still available when the program is opened again.
 
-### Abstraction
+## How to Run
 
-The Account class is implemented as an Abstract Base Class.
+Make sure Python is installed on your computer.
 
-### Inheritance
+Open the project folder in the terminal and run:
 
-SavingsAccount and CurrentAccount inherit from the Account class.
-
-### Polymorphism
-
-Different account types implement the abstract methods of the Account class.
-
-### Composition
-
-A Customer object owns an Account object.
-
----
-
-## ▶️ How to Run
-
-1. Clone the repository
-
-```
-git clone https://github.com/yourusername/Bank_Management_System.git
-```
-
-2. Open the project folder
-
-3. Run the application
-
-```
+```bash
 python main.py
 ```
 
----
+On some Windows systems, you may need:
 
-## 📸 Sample Menu
-
+```bash
+py main.py
 ```
+
+## Data Storage
+
+Customer and account information is stored in:
+
+```text
+data/bank_data.json
+```
+
+The file is updated automatically whenever changes are made.
+
+## Example Menu
+
+```text
 ==================================================
             BANK MANAGEMENT SYSTEM
 ==================================================
-
 1. Create Customer
 2. View All Customers
 3. View Customer
@@ -111,26 +95,25 @@ python main.py
 5. Withdraw Money
 6. Transfer Money
 7. Remove Customer
-8. Save Data
 0. Exit
 ==================================================
 ```
 
----
+## Error Handling
 
-## 📈 Future Improvements
+The program uses `try-except` blocks and input validation to handle invalid data and banking operations. For example, it prevents invalid amounts, insufficient balance, invalid customer IDs, and incorrect input formats.
 
-- Transaction History
-- Admin Login
-- Customer Login
-- Interest Calculation
-- Overdraft Facility
-- Password Encryption
-- Database Integration
-- Graphical User Interface (GUI)
+## Future Improvements
 
----
+Some features I could add later are:
 
-## 👨‍💻 Author
+* Transaction history
+* Customer and admin login
+* Interest calculation
+* Overdraft support
+* Database integration
+* GUI version
+
+## Author
 
 **Sachin Neupane**
